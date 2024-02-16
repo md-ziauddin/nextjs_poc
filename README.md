@@ -20,17 +20,81 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### This project follows recommended practices for routing and component organization in Next.js 14 using the App Router.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Key Features:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Clean and scalable structure:** The `app` directory houses all routes and components, promoting easy navigation and maintainability.
+- **Dynamic routing:** Leverage dynamic segments ([...slug]) for flexible URL structures.
+- **Nested components:** Organize and reuse components within the `components` folder for efficient development.
+- **Server actions:** Integrate directly with components for efficient data fetching and logic execution.
 
-## Deploy on Vercel
+**Folder Structure:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+        app/
+      - components/
+        - Button.tsx
+        - Layout.tsx
+        - ...
+      - [slug].tsx (dynamic routes)
+      - index.tsx (root route)
+      - routes/
+        - [articleId].tsx
+        - ...
+    components/
+      - ... (global components)
+    public/
+      - static assets
+    styles/
+      - global styles
+    ...
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Component Organization:**
+
+- **Root components:** `app/page.tsx` acts as the main entry point, rendering the top-level layout.
+- **Dynamic routes:** Files within the `app` directory define dynamic routes based on their names (e.g., `app/blog/[slug].tsx`).
+- **Nested routes:** Use subfolders within `app/routes` to group related routes (e.g., `app/routes/articles/[id].js`).
+- **Global components:** Place frequently used components in the `components` folder at the project root.
+  _Reference:_ - [Getting Started: Project Structure | Next.js (nextjs.org)](https://nextjs.org/docs/getting-started/project-structure)
+
+**Routing Guidelines:**
+
+- **Route naming:** Use descriptive names for routes and components (e.g., `app/product/[id].js`).
+- **Nested layouts:** You can nest layouts by adding `layout.js` inside specific route segments (folders).
+- **Server actions:** Utilize `getServerSideProps` or `getStaticProps` within components to fetch data on the server or at build time.
+  _Reference:_ - [Building Your Application: Routing | Next.js (nextjs.org)](https://nextjs.org/docs/app/building-your-application/routing)
+  _Reference:_ - [Data Fetching: Server Actions and Mutations | Next.js (nextjs.org)](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations)
+
+**Code Example (dynamic route):**
+
+    // app/blog/[slug].js
+    import { useRouter } from 'next/router';
+    import Layout from '../components/Layout';
+
+    export default function BlogPost({ post }) {
+      const router = useRouter();
+
+      // Display blog post content using `post` data
+
+      return (
+        <Layout>
+          {/* Render blog post content */}
+        </Layout>
+      );
+    }
+
+    export async function getServerSideProps({ params }) {
+      const response = await fetch(`https://api.example.com/posts/${params.slug}`);
+      const post = await response.json();
+
+      return { props: { post } };
+    }
+
+**Additional Tips:**
+
+- Use environment variables for sensitive data.
+- Leverage code-splitting for performance optimization.
+- Consider accessibility best practices when designing components.
+- Test your components and routes thoroughly.
