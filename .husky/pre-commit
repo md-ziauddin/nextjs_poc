@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+echo "echo $HUSKY_GIT_PARAMS"
+
+npx --no -- commitlint --edit $1
+
+npx --no-install lint-staged

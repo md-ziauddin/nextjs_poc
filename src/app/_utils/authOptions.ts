@@ -1,5 +1,5 @@
 // importing providers
-import GithubProvider from "next-auth/providers/github";
+import GithubProvider from 'next-auth/providers/github';
 
 export const authOptions = {
   providers: [
