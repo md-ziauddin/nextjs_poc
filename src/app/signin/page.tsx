@@ -4,10 +4,27 @@
 // importing necessary functions
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import axiosApi, { interceptorFunc } from '../_utils/apiConfig/axiosConfig';
 
 export default function Home() {
   // extracting data from usesession as session
   const { data: session } = useSession();
+
+  useEffect(() => {
+    const ApiCall = async () => {
+      interceptorFunc();
+      console.log('UseEffect');
+      try {
+        const response = await axiosApi.get('/test');
+        console.log({ response });
+      } catch (err: any) {
+        console.log(err.message);
+      }
+    };
+
+    ApiCall();
+  }, []);
 
   // checking if sessions exists
   if (session) {
