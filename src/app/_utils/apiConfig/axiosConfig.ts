@@ -1,18 +1,27 @@
 // src/apis/configs/axiosConfigs.js
 
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosProxyConfig, AxiosRequestConfig } from 'axios';
 import os from 'os';
 
 // initializing the axios instance with custom configs
 const axiosApi = axios.create({
-  baseURL: 'http://localhost:8000',
-  withCredentials: true,
+  // baseURL: 'http://localhost:8000',
+  // withCredentials: true,
   // adding a custom language header
   headers: {
     'Custom-Language': 'en',
     'x-custom-header-1': 'custom-value',
   },
 });
+
+const url = new URL('http://localhost:8000/');
+
+const proxyConfig: AxiosProxyConfig = {
+  host: url.hostname,
+  port: parseInt(url.port),
+};
+
+axiosApi.defaults.proxy = proxyConfig;
 
 // defining a custom error handler for all APIs
 export const errorHandler = (error: any) => {
@@ -31,12 +40,10 @@ export const interceptorFunc = () => {
   // "api" axios instance
   axiosApi.interceptors.request.use(
     async config => {
-      console.log({ a: '123', hostName: os.hostname() });
-
       config.headers['x-custom-header'] = 'custom-value';
       config.headers['hostName'] = os.hostname();
 
-      console.log({ headers: config.headers });
+      // console.log({ headers: config.headers });
 
       return config;
     },

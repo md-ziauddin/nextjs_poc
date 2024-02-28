@@ -1,9 +1,7 @@
-import CustomSlider from '@/components/CustomSlider';
-import styles from './page.module.css';
-import Switch from '@mui/material/Switch';
 import { Grid, Link as MuiLink, Typography } from '@mui/material';
-import Link, { LinkProps } from 'next/link';
+import Link from 'next/link';
 import axiosApi from './_utils/apiConfig/axiosConfig';
+import { NextPageContext } from 'next';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -20,6 +18,8 @@ const getTodo = async () => {
 export default async function Home() {
   const todo = await getTodo();
 
+  console.log({ todo: todo?.data });
+
   return (
     <Grid
       container
@@ -31,13 +31,13 @@ export default async function Home() {
         background: 'white',
       }}
     >
-      <Typography color='black'>Hello World!!!</Typography>
-      <Link href='/about' passHref>
-        <MuiLink>About</MuiLink>
-      </Link>
-      <Link href='/signin' passHref>
-        <MuiLink>Login</MuiLink>
-      </Link>
+      <Typography color='black'>Hello world!!!</Typography>
+      <MuiLink component={Link} href='/about'>
+        About
+      </MuiLink>
+      <MuiLink component={Link} href='/signin'>
+        Login
+      </MuiLink>
     </Grid>
   );
 }
