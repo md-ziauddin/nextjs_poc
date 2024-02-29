@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ---
 
-### This project follows recommended practices for routing and component organization in Next.js 14 using the App Router.
+### This project follows recommended practices for routing and component organization in Next.js using the App Router.
 
 **Key Features:**
 

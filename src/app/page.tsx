@@ -18,8 +18,6 @@ const getTodo = async () => {
 export default async function Home() {
   const todo = await getTodo();
 
-  console.log({ todo: todo?.data });
-
   return (
     <Grid
       container
@@ -37,6 +35,12 @@ export default async function Home() {
       </MuiLink>
       <MuiLink component={Link} href='/signin'>
         Login
+      </MuiLink>
+      <MuiLink component={Link} href='/protectedroute'>
+        Protected Route(SSR)
+      </MuiLink>
+      <MuiLink component={Link} href='/protectedroute-client'>
+        Protected Route(client)
       </MuiLink>
     </Grid>
   );

@@ -5,7 +5,7 @@ import os from 'os';
 
 // initializing the axios instance with custom configs
 const axiosApi = axios.create({
-  // baseURL: 'http://localhost:8000',
+  baseURL: 'http://localhost:8000',
   // withCredentials: true,
   // adding a custom language header
   headers: {
@@ -42,8 +42,9 @@ export const interceptorFunc = () => {
     async config => {
       config.headers['x-custom-header'] = 'custom-value';
       config.headers['hostName'] = os.hostname();
+      config.headers['protected'] = true;
 
-      // console.log({ headers: config.headers });
+      console.log({ headers: config.headers });
 
       return config;
     },
