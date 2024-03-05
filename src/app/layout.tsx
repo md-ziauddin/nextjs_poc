@@ -9,6 +9,7 @@ import theme from '@/app/_utils/theme/theme';
 import SessionWrapper from '@/components/SessionWrapper';
 
 import { interceptorFunc } from './_utils/apiConfig/axiosConfig';
+import StoreProvider from './redux/storeProvide';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,13 +27,15 @@ export default async function RootLayout({
 }>) {
   return (
     <SessionWrapper>
-      <html lang='en'>
-        <body className={inter.className}>
-          <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          </AppRouterCacheProvider>
-        </body>
-      </html>
+      <StoreProvider>
+        <html lang='en'>
+          <body className={inter.className}>
+            <AppRouterCacheProvider>
+              <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            </AppRouterCacheProvider>
+          </body>
+        </html>
+      </StoreProvider>
     </SessionWrapper>
   );
 }
